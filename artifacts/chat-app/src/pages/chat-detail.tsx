@@ -1,5 +1,5 @@
 import { Link, useParams } from "wouter";
-import { useGetChat, getGetChatQueryKey } from "@workspace/api-client-react";
+import { useGetChat, getGetChatQueryKey, getListChatsQueryKey } from "@workspace/api-client-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { socket } from "@/lib/socket";
 import { useQueryClient } from "@tanstack/react-query";
@@ -110,8 +110,8 @@ export default function ChatDetail() {
   // Socket.io
   useEffect(() => {
     socket.emit("join_chat", chatId);
-    const onNew = () => {
-      setIsTyping(false);
+    const onNew = (msg: any) => {
+      if (!msg.isMine) setIsTyping(false);
       queryClient.invalidateQueries({ queryKey: getGetChatQueryKey(chatId) });
     };
     const onEdited = () => queryClient.invalidateQueries({ queryKey: getGetChatQueryKey(chatId) });
@@ -129,8 +129,10 @@ export default function ChatDetail() {
 
   // Mark incoming messages as read when entering chat
   useEffect(() => {
-    fetch(API + `/api/chats/${chatId}/read`, { method: "PATCH" }).catch(() => {});
-  }, [chatId]);
+    fetch(API + `/api/chats/${chatId}/read`, { method: "PATCH" })
+      .then(() => queryClient.invalidateQueries({ queryKey: getListChatsQueryKey() }))
+      .catch(() => {});
+  }, [chatId, queryClient]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -349,10 +351,10 @@ export default function ChatDetail() {
               <div
                 data-bubble
                 onMouseDown={e => startPress(msg, e)}
-                onMouseUp={cancelPress}
+                onMouseUp={() => endPress(msg)}
                 onMouseLeave={cancelPress}
                 onTouchStart={e => startPress(msg, e)}
-                onTouchEnd={cancelPress}
+                onTouchEnd={() => endPress(msg)}
                 style={{
                   maxWidth: "75%",
                   borderRadius: 22,

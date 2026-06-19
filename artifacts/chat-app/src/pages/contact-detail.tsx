@@ -115,11 +115,11 @@ export default function ContactDetail() {
         paddingBottom: 10, paddingLeft: 20, paddingRight: 20,
         background: "var(--bg)",
       }}>
-        <Link href={`/chat/${contactId}`} style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "var(--text)" }}>
+        <button onClick={() => window.history.back()} style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "var(--text)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
-        </Link>
+        </button>
         <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: 4, display: "flex" }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>

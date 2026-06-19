@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { db, chatsTable, messagesTable, contactsTable } from "@workspace/db";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { z } from "zod";
 import type { Server as IOServer } from "socket.io";
 
@@ -140,7 +140,7 @@ router.patch("/:chatId/read", async (req, res) => {
     const chatId = Number(req.params.chatId);
     await db.update(messagesTable)
       .set({ isRead: true })
-      .where(eq(messagesTable.chatId, chatId));
+      .where(and(eq(messagesTable.chatId, chatId), eq(messagesTable.isMine, false)));
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: "Failed to mark as read" });

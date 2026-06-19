@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { useListChats, getListChatsQueryKey } from "@workspace/api-client-react";
+import { useListChats, getListChatsQueryKey, useListContacts, getListContactsQueryKey } from "@workspace/api-client-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,6 +34,7 @@ const Chevron = () => (
 export default function ChatList() {
   const queryClient = useQueryClient();
   const { data: chats = [], isLoading } = useListChats({ query: { queryKey: getListChatsQueryKey() } });
+  const { data: allContacts = [] } = useListContacts({ query: { queryKey: getListContactsQueryKey() } });
   const [search, setSearch] = useState("");
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
@@ -50,21 +51,31 @@ export default function ChatList() {
     return () => { socket.off("new_message", onNewMessage); };
   }, [queryClient]);
 
+  const chatByContactId = useMemo(() => {
+    const map: Record<number, any> = {};
+    (chats as any[]).forEach((c: any) => { map[c.contactId] = c; });
+    return map;
+  }, [chats]);
+
   const sortedContacts = useMemo(() => {
-    const contacts = (chats as any[]).map((c: any) => ({
-      id: c.id, contactId: c.contactId, name: c.contactName,
-      avatarUrl: c.avatarUrl, avatarColor: c.avatarColor, avatarInitials: c.avatarInitials,
+    const contacts = (allContacts as any[]).map((c: any) => ({
+      id: chatByContactId[c.id]?.id ?? null,
+      contactId: c.id,
+      name: c.name ?? "",
+      avatarUrl: c.avatarUrl,
+      avatarColor: c.avatarColor,
+      avatarInitials: c.avatarInitials,
     }));
     const filtered = newMsgSearch
       ? contacts.filter((c: any) => c.name.toLowerCase().includes(newMsgSearch.toLowerCase()))
       : contacts;
     return filtered.sort((a: any, b: any) => a.name.localeCompare(b.name));
-  }, [chats, newMsgSearch]);
+  }, [allContacts, chatByContactId, newMsgSearch]);
 
   const grouped = useMemo(() => {
     const map: Record<string, typeof sortedContacts> = {};
     sortedContacts.forEach((c: any) => {
-      const letter = c.name[0].toUpperCase();
+      const letter = (c.name?.[0] || '#').toUpperCase();
       if (!map[letter]) map[letter] = [];
       map[letter].push(c);
     });
@@ -73,20 +84,12 @@ export default function ChatList() {
 
   const letters = Object.keys(grouped).sort();
 
-  const sortedChats = useMemo(() => {
-    const copy = [...(chats as any[])];
-    copy.sort((a, b) => {
-      if (!a.lastMessageAt && !b.lastMessageAt) return 0;
-      if (!a.lastMessageAt) return 1;
-      if (!b.lastMessageAt) return -1;
-      return new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime();
-    });
-    return copy;
-  }, [chats]);
-
-  const filtered = sortedChats.filter((c: any) =>
-    c.contactName.toLowerCase().includes(search.toLowerCase()) ||
-    (c.lastMessage ?? "").toLowerCase().includes(search.toLowerCase())
+  const filtered = useMemo(() =>
+    (chats as any[]).filter((c: any) =>
+      (c.contactName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (c.lastMessage ?? "").toLowerCase().includes(search.toLowerCase())
+    ),
+    [chats, search]
   );
 
   return (
@@ -295,9 +298,9 @@ export default function ChatList() {
                       <div style={{ fontSize: 13, fontWeight: 600, color: "#8e8e93", padding: "4px 28px 2px" }}>{letter}</div>
                       <div style={{ background: "#fff", borderRadius: 12, margin: "0 16px 2px", overflow: "hidden" }}>
                         {(grouped[letter] as any[]).map((contact: any, ci: number, arr: any[]) => (
-                          <div key={contact.id}>
+                          <div key={contact.contactId}>
                             <button
-                              onClick={() => { navigate(`/chat/${contact.id}`); setNewMsgOpen(false); setNewMsgSearch(""); }}
+                              onClick={() => { if (contact.id != null) { navigate(`/chat/${contact.id}`); setNewMsgOpen(false); setNewMsgSearch(""); } }}
                               style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "10px 16px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
                             >
                               {contact.avatarUrl ? (

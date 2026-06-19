@@ -2,13 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 
-const BLACK = "#000";
-const BUBBLE_BG = "#1c1c1e";
-const BUBBLE_MINE = "#ffffff";
-const TEXT_MINE = "#000";
-const TEXT_THEIRS = "#fff";
-const INPUT_BG = "#1c1c1e";
-const SEPARATOR = "rgba(255,255,255,0.08)";
+const BUBBLE_BG = "var(--bubble-in)";
+const BUBBLE_MINE = "var(--bubble-out)";
+const TEXT_MINE = "var(--bubble-out-text)";
+const TEXT_THEIRS = "var(--bubble-in-text)";
+const INPUT_BG = "var(--bg-input)";
+const SEPARATOR = "var(--sep)";
 
 /* ── Mock data ─────────────────────────────────── */
 const GROUP = {
@@ -182,7 +181,7 @@ function AvatarStack() {
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 8, fontWeight: 700, color: "#fff",
             marginLeft: i === 0 ? 0 : -6,
-            border: "1.5px solid #000",
+            border: "1.5px solid var(--bg)",
             zIndex: i,
           }}
         >
@@ -224,7 +223,7 @@ export default function GroupDetail() {
     <div style={{
       position: "absolute", inset: 0,
       display: "flex", flexDirection: "column",
-      background: BLACK, overflow: "hidden",
+      background: "var(--bg)", overflow: "hidden",
     }}>
       {/* ── Header ── */}
       <div style={{
@@ -233,12 +232,12 @@ export default function GroupDetail() {
         paddingBottom: 10,
         paddingLeft: 10, paddingRight: 14,
         gap: 8,
-        background: "#000",
+        background: "var(--bg)",
         borderBottom: `0.5px solid ${SEPARATOR}`,
         flexShrink: 0,
       }}>
         {/* Back */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "#fff", padding: "4px 4px 4px 0", flexShrink: 0 }}>
+        <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "var(--text)", padding: "4px 4px 4px 0", flexShrink: 0 }}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
@@ -249,15 +248,15 @@ export default function GroupDetail() {
           onClick={() => setInfoOpen(true)}
           style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", background: "none", border: "none", cursor: "pointer", padding: "2px 0" }}
         >
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>{GROUP.name}</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "var(--text)", lineHeight: 1.2 }}>{GROUP.name}</div>
           <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
             <AvatarStack />
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{GROUP.online} online</span>
+            <span style={{ fontSize: 13, color: "var(--text-2)" }}>{GROUP.online} online</span>
           </div>
         </button>
 
         {/* Video call */}
-        <button style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#fff" }}>
+        <button style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "var(--text)" }}>
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="7" width="13" height="10" rx="2" />
             <polyline points="22 7 17 12 22 17" />
@@ -340,7 +339,7 @@ export default function GroupDetail() {
                       <span style={{
                         position: "absolute", bottom: 7, right: 12,
                         fontSize: 11, lineHeight: 1,
-                        color: isMine ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.4)",
+                        color: "var(--text-2)",
                         display: "flex", alignItems: "center", gap: 3, whiteSpace: "nowrap",
                       }}>
                         {msg.time}
@@ -412,7 +411,7 @@ export default function GroupDetail() {
       {/* ── Input Area ── */}
       <div style={{
         flexShrink: 0,
-        background: "#000",
+        background: "var(--bg)",
         borderTop: `0.5px solid ${SEPARATOR}`,
         padding: "10px 10px",
         paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))",
@@ -421,10 +420,10 @@ export default function GroupDetail() {
           {/* + button */}
           <button style={{
             width: 36, height: 36, borderRadius: "50%",
-            background: "#2c2c2e",
+            background: "var(--bg-input)",
             border: "none", cursor: "pointer",
             display: "flex", alignItems: "center", justifyContent: "center",
-            flexShrink: 0, color: "#fff",
+            flexShrink: 0, color: "var(--text)",
           }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
               <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
@@ -439,7 +438,7 @@ export default function GroupDetail() {
             display: "flex", alignItems: "center",
             padding: "0 14px",
             height: 40,
-            border: "1px solid rgba(255,255,255,0.08)",
+            border: "1px solid var(--sep)",
           }}>
             <input
               ref={inputRef}
@@ -449,7 +448,7 @@ export default function GroupDetail() {
               placeholder="Send a message"
               style={{
                 flex: 1, border: "none", background: "transparent",
-                fontSize: 15, color: "#fff", outline: "none",
+                fontSize: 15, color: "var(--text)", outline: "none",
               }}
             />
           </div>
@@ -459,7 +458,7 @@ export default function GroupDetail() {
             onClick={handleSend}
             style={{
               width: 36, height: 36, borderRadius: "50%",
-              background: content.trim() ? "#007AFF" : "#2c2c2e",
+              background: content.trim() ? "#007AFF" : "var(--bg-input)",
               border: "none", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0, transition: "background 0.2s",

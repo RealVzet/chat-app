@@ -238,8 +238,8 @@ export default function GroupDetail() {
         flexShrink: 0,
       }}>
         {/* Back */}
-        <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "#007AFF", padding: "4px 4px 4px 0", flexShrink: 0 }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "#fff", padding: "4px 4px 4px 0", flexShrink: 0 }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </Link>
@@ -257,8 +257,8 @@ export default function GroupDetail() {
         </button>
 
         {/* Video call */}
-        <button style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#007AFF" }}>
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <button style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#fff" }}>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="7" width="13" height="10" rx="2" />
             <polyline points="22 7 17 12 22 17" />
           </svg>

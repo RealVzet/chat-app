@@ -221,7 +221,7 @@ export default function ChatDetail() {
   if (isLoading) {
     return (
       <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
-        <div style={{ width: 28, height: 28, border: "2px solid #007AFF", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
+        <div style={{ width: 28, height: 28, border: "2px solid var(--text)", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
       </div>
     );
   }
@@ -241,8 +241,8 @@ export default function ChatDetail() {
     >
       {/* ── Header ── */}
       <div style={{ display: "flex", alignItems: "center", paddingTop: "calc(env(safe-area-inset-top, 0px) + 4px)", paddingBottom: 10, paddingLeft: 10, paddingRight: 10, gap: 8, background: "var(--bg)", borderBottom: "0.5px solid var(--sep)", flexShrink: 0 }}>
-        <Link href="/" style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", alignItems: "center", flexShrink: 0, textDecoration: "none" }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <Link href="/" style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", alignItems: "center", flexShrink: 0, textDecoration: "none", color: "var(--text)" }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </Link>
@@ -254,19 +254,19 @@ export default function ChatDetail() {
           )}
         </Link>
         <Link href={`/contact/${chat.contactId}`} style={{ flex: 1, textDecoration: "none" }}>
-          <div style={{ fontSize: 16, fontWeight: 600, color: "#000", lineHeight: 1.2 }}>{chat.contactName} <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: 14 }}>›</span></div>
+          <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text)", lineHeight: 1.2 }}>{chat.contactName} <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: 14 }}>›</span></div>
           {chat.contactId % 2 === 0
             ? <div style={{ fontSize: 12, color: "#34c759", fontWeight: 500, marginTop: 1 }}>online</div>
             : <div style={{ fontSize: 12, color: "#8e8e93", marginTop: 1 }}>last seen today</div>
           }
         </Link>
         <div style={{ display: "flex", gap: 4 }}>
-          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 5, color: "#007AFF", display: "flex", alignItems: "center" }}>
+          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 5, color: "var(--text)", display: "flex", alignItems: "center" }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M23 7l-7 5 7 5V7z" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
             </svg>
           </button>
-          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 5, color: "#007AFF", display: "flex", alignItems: "center" }}>
+          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 5, color: "var(--text)", display: "flex", alignItems: "center" }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.14-.95a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
@@ -596,7 +596,7 @@ export default function ChatDetail() {
         <div style={{ display: "flex", alignItems: "flex-end", gap: 8 }}>
 
           {/* + button */}
-          <button style={{ background: "none", border: "none", cursor: "pointer", color: "#007AFF", padding: "0 2px 8px", flexShrink: 0, display: "flex" }}>
+          <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: "0 2px 8px", flexShrink: 0, display: "flex" }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
@@ -672,12 +672,12 @@ export default function ChatDetail() {
             </button>
           ) : (
             <div style={{ display: "flex", gap: 2, paddingBottom: 8 }}>
-              <button style={{ background: "none", border: "none", cursor: "pointer", color: "#007AFF", padding: "0 2px", display: "flex" }}>
+              <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: "0 2px", display: "flex" }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
                 </svg>
               </button>
-              <button style={{ background: "none", border: "none", cursor: "pointer", color: "#007AFF", padding: "0 2px", display: "flex" }}>
+              <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: "0 2px", display: "flex" }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
                   <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>

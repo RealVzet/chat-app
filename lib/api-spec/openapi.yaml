@@ -1,22 +1,24 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Chat App API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: chats
+    description: Chat operations
+  - name: contacts
+    description: Contact operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +26,104 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /chats:
+    get:
+      operationId: listChats
+      tags: [chats]
+      summary: List all chats
+      responses:
+        "200":
+          description: List of chats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChatSummary"
+
+  /chats/{id}:
+    get:
+      operationId: getChat
+      tags: [chats]
+      summary: Get chat detail with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Chat detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatDetail"
+        "404":
+          description: Not found
+
+  /chats/{chatId}/messages:
+    post:
+      operationId: sendMessage
+      tags: [chats]
+      summary: Send a message in a chat
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessageInput"
+      responses:
+        "201":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+
+  /contacts:
+    get:
+      operationId: listContacts
+      tags: [contacts]
+      summary: List all contacts
+      responses:
+        "200":
+          description: List of contacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Contact"
+
+  /contacts/{id}:
+    get:
+      operationId: getContact
+      tags: [contacts]
+      summary: Get contact detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Contact detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contact"
+        "404":
+          description: Not found
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +134,94 @@ components:
       required:
         - status
 
+    ChatSummary:
+      type: object
+      required: [id, contactId, contactName, avatarColor, avatarInitials, lastMessage, lastMessageTime, unreadCount]
+      properties:
+        id:
+          type: integer
+        contactId:
+          type: integer
+        contactName:
+          type: string
+        avatarColor:
+          type: string
+        avatarInitials:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        lastMessage:
+          type: string
+        lastMessageTime:
+          type: string
+        unreadCount:
+          type: integer
+
+    Message:
+      type: object
+      required: [id, content, isMine, sentAt, isRead]
+      properties:
+        id:
+          type: integer
+        content:
+          type: string
+        isMine:
+          type: boolean
+        sentAt:
+          type: string
+        isRead:
+          type: boolean
+        replyToId:
+          type: ["integer", "null"]
+        editedAt:
+          type: ["string", "null"]
+        isDeleted:
+          type: boolean
+
+    ChatDetail:
+      type: object
+      required: [id, contactId, contactName, avatarColor, avatarInitials, messages]
+      properties:
+        id:
+          type: integer
+        contactId:
+          type: integer
+        contactName:
+          type: string
+        avatarColor:
+          type: string
+        avatarInitials:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Message"
+
+    Contact:
+      type: object
+      required: [id, name, avatarColor, avatarInitials]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        avatarColor:
+          type: string
+        avatarInitials:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        disappearingMessages:
+          type: ["string", "null"]
+
+    MessageInput:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          minLength: 1
+        replyToId:
+          type: ["integer", "null"]

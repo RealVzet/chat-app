@@ -220,14 +220,14 @@ export default function ChatDetail() {
 
   if (isLoading) {
     return (
-      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "#fff" }}>
+      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
         <div style={{ width: 28, height: 28, border: "2px solid #007AFF", borderTopColor: "transparent", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
       </div>
     );
   }
 
   if (!chat) return (
-    <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", color: "#8e8e93", fontSize: 17 }}>
+    <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", color: "#8e8e93", fontSize: 17 }}>
       Chat not found
     </div>
   );
@@ -236,11 +236,11 @@ export default function ChatDetail() {
 
   return (
     <div
-      style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", background: "#fff", overflow: "hidden" }}
+      style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", background: "var(--bg)", overflow: "hidden" }}
       onClick={() => ctx && setCtx(null)}
     >
       {/* ── Header ── */}
-      <div style={{ display: "flex", alignItems: "center", paddingTop: "calc(env(safe-area-inset-top, 0px) + 4px)", paddingBottom: 10, paddingLeft: 10, paddingRight: 10, gap: 8, background: "#fff", borderBottom: "0.5px solid #e5e5ea", flexShrink: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", paddingTop: "calc(env(safe-area-inset-top, 0px) + 4px)", paddingBottom: 10, paddingLeft: 10, paddingRight: 10, gap: 8, background: "var(--bg)", borderBottom: "0.5px solid var(--sep)", flexShrink: 0 }}>
         <Link href="/" style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", alignItems: "center", flexShrink: 0, textDecoration: "none" }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
@@ -283,15 +283,15 @@ export default function ChatDetail() {
             <motion.div
               initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              style={{ flexShrink: 0, borderBottom: "0.5px solid #e5e5ea", overflow: "hidden" }}
+              style={{ flexShrink: 0, borderBottom: "0.5px solid var(--sep)", overflow: "hidden" }}
             >
-              <div style={{ display: "flex", alignItems: "center", padding: "8px 14px", gap: 10, background: "#f9f9fb" }}>
+              <div style={{ display: "flex", alignItems: "center", padding: "8px 14px", gap: 10, background: "var(--bg-2)" }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007AFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"/>
                 </svg>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: "#007AFF", marginBottom: 1 }}>Pinned Message</div>
-                  <div style={{ fontSize: 13, color: "#555", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{pinned.content}</div>
+                  <div style={{ fontSize: 13, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{pinned.content}</div>
                 </div>
                 <button onClick={() => setPinnedMsgId(null)} style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "#8e8e93", display: "flex" }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -317,13 +317,13 @@ export default function ChatDetail() {
               <div key={msg.id}>
                 {showDateDivider && (
                   <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "10px 0 6px" }}>
-                    <div style={{ flex: 1, height: 0.5, background: "#e5e5ea" }} />
+                    <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
                     <span style={{ fontSize: 12, color: "#8e8e93", fontWeight: 500, whiteSpace: "nowrap" }}>{getDateLabel(msg.createdAtIso)}</span>
-                    <div style={{ flex: 1, height: 0.5, background: "#e5e5ea" }} />
+                    <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
                   </div>
                 )}
                 <div style={{ display: "flex", justifyContent: msg.isMine ? "flex-end" : "flex-start", marginTop: prevSame ? 0 : 6 }}>
-                  <div style={{ fontSize: 14, color: "#8e8e93", fontStyle: "italic", padding: "8px 14px", background: "#f0f0f5", borderRadius: 18 }}>
+                  <div style={{ fontSize: 14, color: "var(--text-2)", fontStyle: "italic", padding: "8px 14px", background: "var(--bubble-in)", borderRadius: 18 }}>
                     This message was deleted
                   </div>
                 </div>
@@ -335,9 +335,9 @@ export default function ChatDetail() {
             <div key={msg.id} style={{ marginTop: prevSame ? 1 : 8 }}>
               {showDateDivider && (
                 <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "6px 0 8px" }}>
-                  <div style={{ flex: 1, height: 0.5, background: "#e5e5ea" }} />
+                  <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
                   <span style={{ fontSize: 12, color: "#8e8e93", fontWeight: 500, whiteSpace: "nowrap" }}>{getDateLabel(msg.createdAtIso)}</span>
-                  <div style={{ flex: 1, height: 0.5, background: "#e5e5ea" }} />
+                  <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
                 </div>
               )}
             <SwipeableRow
@@ -358,8 +358,8 @@ export default function ChatDetail() {
                   borderRadius: 22,
                   borderBottomRightRadius: msg.isMine ? (nextSame ? 22 : 6) : 22,
                   borderBottomLeftRadius: msg.isMine ? 22 : (nextSame ? 22 : 6),
-                  background: msg.isMine ? "#007AFF" : "#f0f0f5",
-                  color: msg.isMine ? "#fff" : "#000",
+                  background: msg.isMine ? "#007AFF" : "var(--bubble-in)",
+                  color: msg.isMine ? "#fff" : "var(--bubble-in-text)",
                   cursor: "pointer",
                   userSelect: "none",
                   WebkitUserSelect: "none",
@@ -381,7 +381,7 @@ export default function ChatDetail() {
                         <div style={{ fontSize: 13, fontWeight: 700, color: msg.isMine ? "#fff" : "#007AFF", marginBottom: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {msg.replyTo.isMine ? "You" : chat.contactName}
                         </div>
-                        <div style={{ fontSize: 13, color: msg.isMine ? "rgba(255,255,255,0.72)" : "#666", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        <div style={{ fontSize: 13, color: msg.isMine ? "rgba(255,255,255,0.72)" : "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                           {msg.replyTo.content}
                         </div>
                       </div>
@@ -416,12 +416,12 @@ export default function ChatDetail() {
                   style={{
                     marginTop: 3,
                     alignSelf: msg.isMine ? "flex-end" : "flex-start",
-                    background: "#f0f0f5",
+                    background: "var(--bg-input)",
                     borderRadius: 12,
                     padding: "2px 8px",
                     fontSize: 18,
                     cursor: "pointer",
-                    border: "1.5px solid #fff",
+                    border: "1.5px solid var(--bg)",
                     boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
                   }}
                 >
@@ -436,7 +436,7 @@ export default function ChatDetail() {
         {/* Typing indicator */}
         {isTyping && (
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-start", marginTop: 6 }}>
-            <div style={{ background: "#f0f0f5", borderRadius: 22, borderBottomLeftRadius: 6, padding: "14px 18px", display: "flex", gap: 5, alignItems: "center" }}>
+            <div style={{ background: "var(--bubble-in)", borderRadius: 22, borderBottomLeftRadius: 6, padding: "14px 18px", display: "flex", gap: 5, alignItems: "center" }}>
               {[0, 0.15, 0.3].map(delay => (
                 <span key={delay} style={{ width: 8, height: 8, borderRadius: "50%", background: "#8e8e93", display: "inline-block", animation: "msgBounce 1.2s ease-in-out infinite", animationDelay: `${delay}s` }} />
               ))}
@@ -504,7 +504,7 @@ export default function ChatDetail() {
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ type: "spring", damping: 20, stiffness: 350 }}
                   style={{
-                    background: "rgba(255,255,255,0.97)",
+                    background: "var(--glass)",
                     backdropFilter: "blur(20px)",
                     borderRadius: 40,
                     padding: "6px 8px",
@@ -539,7 +539,7 @@ export default function ChatDetail() {
                     </button>
                   ))}
                   <button style={{
-                    width: 32, height: 32, borderRadius: "50%", background: "#e5e5ea",
+                    width: 32, height: 32, borderRadius: "50%", background: "var(--bg-input)",
                     border: "none", cursor: "pointer", flexShrink: 0,
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
@@ -556,7 +556,7 @@ export default function ChatDetail() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ type: "spring", damping: 24, stiffness: 320, delay: 0.04 }}
                   style={{
-                    background: "rgba(255,255,255,0.97)",
+                    background: "var(--glass)",
                     backdropFilter: "blur(20px)",
                     borderRadius: 14,
                     boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
@@ -572,9 +572,9 @@ export default function ChatDetail() {
                         display: "flex", alignItems: "center", justifyContent: "space-between",
                         width: "100%", padding: "11px 16px",
                         background: "none", border: "none",
-                        borderBottom: i !== arr.length - 1 ? "0.5px solid rgba(0,0,0,0.1)" : "none",
+                        borderBottom: i !== arr.length - 1 ? "0.5px solid var(--sep)" : "none",
                         cursor: "pointer",
-                        color: (item as any).danger ? "#ff3b30" : "#000",
+                        color: (item as any).danger ? "#ff3b30" : "var(--text)",
                         textAlign: "left",
                       }}
                     >
@@ -590,7 +590,7 @@ export default function ChatDetail() {
       </AnimatePresence>
 
       {/* ── Input area ── */}
-      <div style={{ flexShrink: 0, background: "#fff", borderTop: "1px solid #f0f0f5", paddingTop: 8, paddingLeft: 10, paddingRight: 10, paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))" }}>
+      <div style={{ flexShrink: 0, background: "var(--bg)", borderTop: "1px solid var(--sep)", paddingTop: 8, paddingLeft: 10, paddingRight: 10, paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))" }}>
 
         {/* Input pill — wraps reply banner + text field together */}
         <div style={{ display: "flex", alignItems: "flex-end", gap: 8 }}>
@@ -603,7 +603,7 @@ export default function ChatDetail() {
           </button>
 
           {/* Pill container */}
-          <div style={{ flex: 1, background: "#f0f0f5", borderRadius: 22, overflow: "hidden" }}>
+          <div style={{ flex: 1, background: "var(--bg-input)", borderRadius: 22, overflow: "hidden" }}>
 
             {/* Reply / Edit preview inside the pill */}
             <AnimatePresence>
@@ -622,7 +622,7 @@ export default function ChatDetail() {
                       <div style={{ fontSize: 13, fontWeight: 700, color: "#007AFF", marginBottom: 2 }}>
                         {editingId !== null ? "Edit Message" : (replyTo?.isMine ? "You" : chat.contactName)}
                       </div>
-                      <div style={{ fontSize: 13, color: "#555", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      <div style={{ fontSize: 13, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                         {editingId !== null ? content : replyTo?.content}
                       </div>
                     </div>
@@ -637,7 +637,7 @@ export default function ChatDetail() {
                       }}
                     >×</button>
                   </div>
-                  <div style={{ height: 1, background: "rgba(0,0,0,0.08)", margin: "0 12px" }} />
+                  <div style={{ height: 1, background: "var(--sep)", margin: "0 12px" }} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -646,7 +646,7 @@ export default function ChatDetail() {
             <div style={{ display: "flex", alignItems: "center", padding: "8px 12px", gap: 6 }}>
               <input
                 ref={inputRef}
-                style={{ flex: 1, border: "none", background: "transparent", fontSize: 16, color: "#333", outline: "none" }}
+                style={{ flex: 1, border: "none", background: "transparent", fontSize: 16, color: "var(--text)", outline: "none" }}
                 placeholder="Message"
                 value={content}
                 onChange={e => setContent(e.target.value)}

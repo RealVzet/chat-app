@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 
 const TABS = [
   {
@@ -33,14 +33,13 @@ const TABS = [
 ];
 
 export default function IosTabBar({ active }: { active: "Chats" | "Calls" | "Stories" }) {
-  const [location] = useLocation();
   return (
     <div style={{
       display: "flex",
-      borderTop: "0.5px solid rgba(0,0,0,0.15)",
+      borderTop: "0.5px solid var(--sep)",
       padding: "6px 0",
       paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))",
-      background: "rgba(249,249,249,0.94)",
+      background: "var(--tab-bg)",
       backdropFilter: "blur(20px)",
       WebkitBackdropFilter: "blur(20px)",
       flexShrink: 0,

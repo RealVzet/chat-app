@@ -11,6 +11,7 @@ import Stories from "@/pages/stories";
 import IosTabBar from "@/components/ios-tab-bar";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, createContext, useContext } from "react";
+import { ThemeProvider } from "@/lib/theme";
 
 function getDepth(path: string): number {
   if (path.startsWith("/contact")) return 2;
@@ -109,14 +110,16 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

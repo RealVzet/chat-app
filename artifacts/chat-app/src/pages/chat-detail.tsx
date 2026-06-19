@@ -590,102 +590,94 @@ export default function ChatDetail() {
       </AnimatePresence>
 
       {/* ── Input area ── */}
-      <div style={{ flexShrink: 0, background: "var(--bg)", borderTop: "1px solid var(--sep)", paddingTop: 8, paddingLeft: 10, paddingRight: 10, paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))" }}>
+      <div style={{
+        flexShrink: 0,
+        background: "var(--bg)",
+        borderTop: "0.5px solid var(--sep)",
+        padding: "10px 10px",
+        paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))",
+      }}>
 
-        {/* Input pill — wraps reply banner + text field together */}
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 8 }}>
+        {/* Reply / Edit preview banner above input row */}
+        <AnimatePresence>
+          {(replyTo || editingId !== null) && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              style={{ overflow: "hidden", marginBottom: 6 }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 10, background: "var(--bg-input)", borderRadius: 12, padding: "8px 12px" }}>
+                <div style={{ width: 3, alignSelf: "stretch", borderRadius: 2, background: "#007AFF", flexShrink: 0 }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#007AFF", marginBottom: 2 }}>
+                    {editingId !== null ? "Edit Message" : (replyTo?.isMine ? "You" : chat.contactName)}
+                  </div>
+                  <div style={{ fontSize: 13, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {editingId !== null ? content : replyTo?.content}
+                  </div>
+                </div>
+                <button
+                  onClick={() => { setReplyTo(null); setEditingId(null); setContent(""); }}
+                  style={{ width: 22, height: 22, borderRadius: "50%", background: "var(--text-2)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--bg)", fontSize: 14, fontWeight: 700, lineHeight: 1 }}
+                >×</button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-          {/* + button */}
-          <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: "0 2px 8px", flexShrink: 0, display: "flex" }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        {/* Main input row — matches group style exactly */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {/* Circular + button */}
+          <button style={{
+            width: 36, height: 36, borderRadius: "50%",
+            background: "var(--bg-card)",
+            border: "none", cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexShrink: 0, color: "var(--text)",
+          }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
           </button>
 
-          {/* Pill container */}
-          <div style={{ flex: 1, background: "var(--bg-input)", borderRadius: 22, overflow: "hidden" }}>
-
-            {/* Reply / Edit preview inside the pill */}
-            <AnimatePresence>
-              {(replyTo || editingId !== null) && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                  style={{ overflow: "hidden" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", padding: "10px 12px 6px", gap: 10 }}>
-                    {/* Left accent bar */}
-                    <div style={{ width: 3, alignSelf: "stretch", borderRadius: 2, background: "#007AFF", flexShrink: 0 }} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: "#007AFF", marginBottom: 2 }}>
-                        {editingId !== null ? "Edit Message" : (replyTo?.isMine ? "You" : chat.contactName)}
-                      </div>
-                      <div style={{ fontSize: 13, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        {editingId !== null ? content : replyTo?.content}
-                      </div>
-                    </div>
-                    {/* Circular X button */}
-                    <button
-                      onClick={() => { setReplyTo(null); setEditingId(null); setContent(""); }}
-                      style={{
-                        width: 22, height: 22, borderRadius: "50%",
-                        background: "#c7c7cc", border: "none", cursor: "pointer",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        flexShrink: 0, color: "#fff", fontSize: 14, fontWeight: 700, lineHeight: 1,
-                      }}
-                    >×</button>
-                  </div>
-                  <div style={{ height: 1, background: "var(--sep)", margin: "0 12px" }} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Text input row */}
-            <div style={{ display: "flex", alignItems: "center", padding: "8px 12px", gap: 6 }}>
-              <input
-                ref={inputRef}
-                style={{ flex: 1, border: "none", background: "transparent", fontSize: 16, color: "var(--text)", outline: "none" }}
-                placeholder="Message"
-                value={content}
-                onChange={e => setContent(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && handleSend()}
-              />
-              <button style={{ background: "none", border: "none", cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", color: "#8e8e93", padding: 2 }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                  <line x1="9" y1="9" x2="9.01" y2="9"/>
-                  <line x1="15" y1="9" x2="15.01" y2="9"/>
-                </svg>
-              </button>
-            </div>
+          {/* Input pill */}
+          <div style={{
+            flex: 1,
+            background: "var(--bg-input)",
+            borderRadius: 24,
+            display: "flex", alignItems: "center",
+            padding: "0 14px",
+            height: 40,
+            border: "1px solid var(--sep)",
+          }}>
+            <input
+              ref={inputRef}
+              value={content}
+              onChange={e => setContent(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && handleSend()}
+              placeholder="Send a message"
+              style={{ flex: 1, border: "none", background: "transparent", fontSize: 15, color: "var(--text)", outline: "none" }}
+            />
           </div>
 
-          {/* Send / media buttons */}
-          {content.trim() ? (
-            <button onClick={handleSend} style={{ width: 34, height: 34, borderRadius: "50%", background: "#007AFF", border: "none", cursor: "pointer", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 6 }}>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
-              </svg>
-            </button>
-          ) : (
-            <div style={{ display: "flex", gap: 2, paddingBottom: 8 }}>
-              <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: "0 2px", display: "flex" }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
-                </svg>
-              </button>
-              <button style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: "0 2px", display: "flex" }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                  <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
-                </svg>
-              </button>
-            </div>
-          )}
+          {/* Circular send button */}
+          <button
+            onClick={handleSend}
+            style={{
+              width: 36, height: 36, borderRadius: "50%",
+              background: content.trim() ? "#007AFF" : "var(--bg-card)",
+              border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              flexShrink: 0, transition: "background 0.2s",
+            }}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>

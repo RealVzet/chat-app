@@ -176,7 +176,7 @@ export default function ChatList() {
                     }}
                   >
                     <span style={{ fontSize: 15, color: "var(--text)" }}>{item.label}</span>
-                    <span style={{ color: "#8e8e93", display: "flex" }}>{item.icon}</span>
+                    <span style={{ color: "var(--text-2)", display: "flex" }}>{item.icon}</span>
                   </button>
                 ))}
               </motion.div>
@@ -187,7 +187,7 @@ export default function ChatList() {
 
       {/* Search */}
       <div style={{ margin: "0 16px 10px", background: "var(--bg-input)", borderRadius: 12, display: "flex", alignItems: "center", gap: 6, padding: "10px 14px" }}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
         <input
@@ -197,7 +197,7 @@ export default function ChatList() {
           onChange={e => setSearch(e.target.value)}
         />
         {search && (
-          <button onClick={() => setSearch("")} style={{ background: "none", border: "none", cursor: "pointer", color: "#8e8e93", fontSize: 17, lineHeight: 1, padding: 0 }}>×</button>
+          <button onClick={() => setSearch("")} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-2)", fontSize: 17, lineHeight: 1, padding: 0 }}>×</button>
         )}
       </div>
 
@@ -208,7 +208,7 @@ export default function ChatList() {
             <div style={{ width: 26, height: 26, border: `2px solid ${BLUE}`, borderTopColor: "transparent", borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
           </div>
         ) : filtered.length === 0 ? (
-          <div style={{ padding: 24, textAlign: "center", color: "#8e8e93", fontSize: 15 }}>No chats found</div>
+          <div style={{ padding: 24, textAlign: "center", color: "var(--text-2)", fontSize: 15 }}>No chats found</div>
         ) : (
           <>
           {/* ── Static group chat entry ── */}
@@ -243,10 +243,10 @@ export default function ChatList() {
                     <span style={{ fontSize: 17, fontWeight: 600, color: "var(--text)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "65%" }}>
                       gucci fans 🌿
                     </span>
-                    <span style={{ fontSize: 14, color: "#8e8e93", whiteSpace: "nowrap", marginLeft: 8 }}>12:45</span>
+                    <span style={{ fontSize: 14, color: "var(--text-2)", whiteSpace: "nowrap", marginLeft: 8 }}>12:45</span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                    <span style={{ fontSize: 15, color: "#8e8e93", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <span style={{ fontSize: 15, color: "var(--text-2)", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       Alex: Come ooooonn 👻
                     </span>
                   </div>
@@ -283,12 +283,12 @@ export default function ChatList() {
                       <span style={{ fontSize: 17, fontWeight: chat.unreadCount > 0 ? 700 : 600, color: "var(--text)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "65%" }}>
                         {chat.contactName}
                       </span>
-                      <span style={{ fontSize: 14, color: chat.unreadCount > 0 ? BLUE : "#8e8e93", whiteSpace: "nowrap", marginLeft: 8, fontWeight: 400 }}>{chat.lastMessageTime}</span>
+                      <span style={{ fontSize: 14, color: chat.unreadCount > 0 ? BLUE : "var(--text-2)", whiteSpace: "nowrap", marginLeft: 8, fontWeight: 400 }}>{chat.lastMessageTime}</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
                       <div style={{
                         fontSize: 15, lineHeight: "1.4",
-                        color: chat.unreadCount > 0 ? "var(--text)" : "#8e8e93",
+                        color: chat.unreadCount > 0 ? "var(--text)" : "var(--text-2)",
                         fontWeight: 400, flex: 1, overflow: "hidden",
                         display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
                       } as React.CSSProperties}>
@@ -324,14 +324,14 @@ export default function ChatList() {
               style={{ position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 91, background: "var(--bg-2)", borderRadius: "20px 20px 0 0", height: "92%", display: "flex", flexDirection: "column", overflow: "hidden" }}
             >
               <div style={{ display: "flex", justifyContent: "center", paddingTop: 10, paddingBottom: 2 }}>
-                <div style={{ width: 36, height: 4, borderRadius: 2, background: "#636366" }} />
+                <div style={{ width: 36, height: 4, borderRadius: 2, background: "var(--text-2)" }} />
               </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 18px 12px" }}>
                 <div style={{ width: 36 }} />
                 <span style={{ fontSize: 17, fontWeight: 700, color: "var(--text)" }}>New Message</span>
                 <button onClick={() => { setNewMsgOpen(false); setNewMsgSearch(""); }}
                   style={{ width: 30, height: 30, borderRadius: "50%", background: "var(--bg-input)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#636366" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>
               <div ref={alphabetListRef} style={{ flex: 1, overflowY: "auto", position: "relative", paddingBottom: 80 }}>
@@ -351,11 +351,11 @@ export default function ChatList() {
                   ))}
                 </div>
                 {letters.length === 0 ? (
-                  <div style={{ textAlign: "center", color: "#8e8e93", fontSize: 15, padding: 32 }}>No contacts found</div>
+                  <div style={{ textAlign: "center", color: "var(--text-2)", fontSize: 15, padding: 32 }}>No contacts found</div>
                 ) : (
                   letters.map(letter => (
                     <div key={letter} id={`letter-${letter}`}>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: "#8e8e93", padding: "4px 28px 2px" }}>{letter}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-2)", padding: "4px 28px 2px" }}>{letter}</div>
                       <div style={{ background: "var(--bg-card)", borderRadius: 12, margin: "0 16px 2px", overflow: "hidden" }}>
                         {(grouped[letter] as any[]).map((contact: any, ci: number, arr: any[]) => (
                           <div key={contact.contactId}>
@@ -382,7 +382,7 @@ export default function ChatList() {
                 {!newMsgSearch && (
                   <div style={{ position: "absolute", right: 4, top: 0, bottom: 0, display: "flex", flexDirection: "column", justifyContent: "center", gap: 1, zIndex: 10 }}>
                     {"ABCDEFGHIJKLMNOPQRSTUVWXYZ#".split("").map(l => (
-                      <button key={l} style={{ fontSize: 10, fontWeight: 600, color: letters.includes(l) ? BLUE : "#636366", background: "none", border: "none", cursor: "pointer", padding: "1px 4px", lineHeight: 1 }}
+                      <button key={l} style={{ fontSize: 10, fontWeight: 600, color: letters.includes(l) ? BLUE : "var(--text-2)", background: "none", border: "none", cursor: "pointer", padding: "1px 4px", lineHeight: 1 }}
                         onClick={() => { const el = document.getElementById(`letter-${l}`); if (el) el.scrollIntoView({ behavior: "smooth" }); }}>
                         {l}
                       </button>
@@ -392,14 +392,14 @@ export default function ChatList() {
               </div>
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "10px 16px 30px", background: "var(--bg-2)", borderTop: "0.5px solid var(--sep)" }}>
                 <div style={{ background: "var(--bg-card)", borderRadius: 12, display: "flex", alignItems: "center", gap: 10, padding: "10px 14px" }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                   </svg>
                   <input autoFocus style={{ flex: 1, border: "none", background: "transparent", fontSize: 16, color: "var(--text)", outline: "none" }}
                     placeholder="Name or username"
                     value={newMsgSearch} onChange={e => setNewMsgSearch(e.target.value)} />
                   {newMsgSearch && (
-                    <button onClick={() => setNewMsgSearch("")} style={{ background: "none", border: "none", cursor: "pointer", color: "#8e8e93", fontSize: 20, lineHeight: 1, padding: 0 }}>×</button>
+                    <button onClick={() => setNewMsgSearch("")} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-2)", fontSize: 20, lineHeight: 1, padding: 0 }}>×</button>
                   )}
                 </div>
               </div>
@@ -422,14 +422,14 @@ export default function ChatList() {
               style={{ position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 81, background: "var(--bg-2)", borderRadius: "20px 20px 0 0", height: "92%", display: "flex", flexDirection: "column", overflow: "hidden" }}
             >
               <div style={{ display: "flex", justifyContent: "center", paddingTop: 10, paddingBottom: 2 }}>
-                <div style={{ width: 36, height: 4, borderRadius: 2, background: "#636366" }} />
+                <div style={{ width: 36, height: 4, borderRadius: 2, background: "var(--text-2)" }} />
               </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 18px 14px" }}>
                 <div style={{ width: 36 }} />
                 <span style={{ fontSize: 17, fontWeight: 700, color: "var(--text)" }}>Settings</span>
                 <button onClick={() => setSettingsOpen(false)}
                   style={{ width: 30, height: 30, borderRadius: "50%", background: "var(--bg-input)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#636366" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>
               <div style={{ flex: 1, overflowY: "auto", padding: "0 16px 40px" }}>
@@ -438,7 +438,7 @@ export default function ChatList() {
                   <img src="https://i.pravatar.cc/150?img=70" style={{ width: 60, height: 60, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", flexShrink: 0 }} alt="me" />
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: 17, fontWeight: 700, color: "var(--text)" }}>Me</div>
-                    <div style={{ fontSize: 13, color: "#8e8e93", marginTop: 2 }}>+1 (555) 000-0001</div>
+                    <div style={{ fontSize: 13, color: "var(--text-2)", marginTop: 2 }}>+1 (555) 000-0001</div>
                     <div style={{ fontSize: 13, color: BLUE, marginTop: 1 }}>me.user</div>
                   </div>
                   <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--bg-input)", display: "flex", alignItems: "center", justifyContent: "center" }}>

@@ -2,7 +2,7 @@ import { Link, useParams } from "wouter";
 import { useGetContact, getGetContactQueryKey } from "@workspace/api-client-react";
 
 const Chevron = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c7c7cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="9 18 15 12 9 6"/>
   </svg>
 );
@@ -98,7 +98,7 @@ export default function ContactDetail() {
     );
   }
   if (!contact) return (
-    <div style={{ position: "absolute", inset: 0, background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "#8e8e93", fontSize: 17 }}>
+    <div style={{ position: "absolute", inset: 0, background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-2)", fontSize: 17 }}>
       Contact not found
     </div>
   );
@@ -150,7 +150,7 @@ export default function ContactDetail() {
             )}
           </div>
           <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--text)", margin: "0 0 4px", letterSpacing: -0.4 }}>{contact.name}</h2>
-          <p style={{ fontSize: 14, color: "#8e8e93", margin: 0 }}>Signal user</p>
+          <p style={{ fontSize: 14, color: "var(--text-2)", margin: 0 }}>Signal user</p>
         </div>
 
         {/* Action buttons */}
@@ -188,7 +188,7 @@ export default function ContactDetail() {
               <span style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>{row.icon}</span>
               <span style={{ flex: 1, fontSize: 16, color: "var(--text)" }}>{row.label}</span>
               {row.value && (
-                <span style={{ fontSize: 15, color: "#8e8e93", marginRight: 4 }}>{row.value}</span>
+                <span style={{ fontSize: 15, color: "var(--text-2)", marginRight: 4 }}>{row.value}</span>
               )}
               <Chevron />
             </button>
@@ -200,14 +200,14 @@ export default function ContactDetail() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 16px", borderBottom: "0.5px solid var(--sep)" }}>
             <span style={{ fontSize: 16, color: "var(--text)", fontWeight: 500 }}>Media, Links, and Docs</span>
             <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <span style={{ fontSize: 15, color: "#8e8e93" }}>4</span>
+              <span style={{ fontSize: 15, color: "var(--text-2)" }}>4</span>
               <Chevron />
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, padding: 2 }}>
             {[1, 2, 3, 4].map((i) => (
               <div key={i} style={{ aspectRatio: "1", background: "var(--bg-input)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 4 }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c7c7cc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                 </svg>
               </div>

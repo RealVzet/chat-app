@@ -73,7 +73,7 @@ function SwipeableRow({ msg, onSwipe, onDragCancel, children }: {
         transition: dragging ? "none" : "opacity 0.2s",
         pointerEvents: "none",
       }}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
         </svg>
       </div>
@@ -227,7 +227,7 @@ export default function ChatDetail() {
   }
 
   if (!chat) return (
-    <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", color: "#8e8e93", fontSize: 17 }}>
+    <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)", color: "var(--text-2)", fontSize: 17 }}>
       Chat not found
     </div>
   );
@@ -254,10 +254,10 @@ export default function ChatDetail() {
           )}
         </Link>
         <Link href={`/contact/${chat.contactId}`} style={{ flex: 1, textDecoration: "none" }}>
-          <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text)", lineHeight: 1.2 }}>{chat.contactName} <span style={{ color: "#8e8e93", fontWeight: 400, fontSize: 14 }}>›</span></div>
+          <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text)", lineHeight: 1.2 }}>{chat.contactName} <span style={{ color: "var(--text-2)", fontWeight: 400, fontSize: 14 }}>›</span></div>
           {chat.contactId % 2 === 0
             ? <div style={{ fontSize: 12, color: "#34c759", fontWeight: 500, marginTop: 1 }}>online</div>
-            : <div style={{ fontSize: 12, color: "#8e8e93", marginTop: 1 }}>last seen today</div>
+            : <div style={{ fontSize: 12, color: "var(--text-2)", marginTop: 1 }}>last seen today</div>
           }
         </Link>
         <div style={{ display: "flex", gap: 4 }}>
@@ -293,7 +293,7 @@ export default function ChatDetail() {
                   <div style={{ fontSize: 11, fontWeight: 700, color: "#007AFF", marginBottom: 1 }}>Pinned Message</div>
                   <div style={{ fontSize: 13, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{pinned.content}</div>
                 </div>
-                <button onClick={() => setPinnedMsgId(null)} style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "#8e8e93", display: "flex" }}>
+                <button onClick={() => setPinnedMsgId(null)} style={{ background: "none", border: "none", cursor: "pointer", padding: 2, color: "var(--text-2)", display: "flex" }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>
@@ -318,7 +318,7 @@ export default function ChatDetail() {
                 {showDateDivider && (
                   <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "10px 0 6px" }}>
                     <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
-                    <span style={{ fontSize: 12, color: "#8e8e93", fontWeight: 500, whiteSpace: "nowrap" }}>{getDateLabel(msg.createdAtIso)}</span>
+                    <span style={{ fontSize: 12, color: "var(--text-2)", fontWeight: 500, whiteSpace: "nowrap" }}>{getDateLabel(msg.createdAtIso)}</span>
                     <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
                   </div>
                 )}
@@ -336,7 +336,7 @@ export default function ChatDetail() {
               {showDateDivider && (
                 <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "6px 0 8px" }}>
                   <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
-                  <span style={{ fontSize: 12, color: "#8e8e93", fontWeight: 500, whiteSpace: "nowrap" }}>{getDateLabel(msg.createdAtIso)}</span>
+                  <span style={{ fontSize: 12, color: "var(--text-2)", fontWeight: 500, whiteSpace: "nowrap" }}>{getDateLabel(msg.createdAtIso)}</span>
                   <div style={{ flex: 1, height: 0.5, background: "var(--sep)" }} />
                 </div>
               )}
@@ -438,7 +438,7 @@ export default function ChatDetail() {
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-start", marginTop: 6 }}>
             <div style={{ background: "var(--bubble-in)", borderRadius: 22, borderBottomLeftRadius: 6, padding: "14px 18px", display: "flex", gap: 5, alignItems: "center" }}>
               {[0, 0.15, 0.3].map(delay => (
-                <span key={delay} style={{ width: 8, height: 8, borderRadius: "50%", background: "#8e8e93", display: "inline-block", animation: "msgBounce 1.2s ease-in-out infinite", animationDelay: `${delay}s` }} />
+                <span key={delay} style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--text-2)", display: "inline-block", animation: "msgBounce 1.2s ease-in-out infinite", animationDelay: `${delay}s` }} />
               ))}
             </div>
           </div>
@@ -543,7 +543,7 @@ export default function ChatDetail() {
                     border: "none", cursor: "pointer", flexShrink: 0,
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#636366" strokeWidth="2.5" strokeLinecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
                   </button>
                 </motion.div>
               </div>
@@ -579,7 +579,7 @@ export default function ChatDetail() {
                       }}
                     >
                       <span style={{ fontSize: 15 }}>{item.label}</span>
-                      <span style={{ display: "flex", color: (item as any).danger ? "#ff3b30" : "#8e8e93" }}>{item.icon}</span>
+                      <span style={{ display: "flex", color: (item as any).danger ? "#ff3b30" : "var(--text-2)" }}>{item.icon}</span>
                     </button>
                   ))}
                 </motion.div>

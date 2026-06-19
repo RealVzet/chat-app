@@ -12,7 +12,7 @@ const recentCalls = [
 ];
 
 function CallArrow({ type, missed }: { type: string; missed: boolean }) {
-  const color = type === "outgoing" ? BLUE : missed ? "#ff3b30" : "#34c759";
+  const color = missed ? "#ff3b30" : type === "outgoing" ? "var(--text-2)" : "#34c759";
   const rotate = type === "outgoing" ? "rotate(-45deg)" : "rotate(135deg)";
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: rotate, display: "inline-block" }}>
@@ -74,11 +74,11 @@ export default function Calls() {
               <img src={call.avatarUrl} style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", flexShrink: 0 }} alt={call.name} />
               <div style={{ flex: 1, borderBottom: isLast ? "none" : "0.5px solid var(--sep)", paddingBottom: isLast ? 0 : 10 }}>
                 <div style={{ fontSize: 16, fontWeight: 500, color: call.missed ? "#ff3b30" : "var(--text)", marginBottom: 3 }}>{call.name}</div>
-                <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "#8e8e93" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "var(--text-2)" }}>
                   <CallArrow type={call.type} missed={call.missed} />
                   <span>{call.missed ? "Missed" : call.type === "incoming" ? "Incoming" : "Outgoing"} · {call.date}</span>
                   {call.video && (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#8e8e93" style={{ marginLeft: 2 }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style={{ marginLeft: 2 }}>
                       <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
                     </svg>
                   )}
@@ -95,7 +95,7 @@ export default function Calls() {
         })}
 
         {visible.length === 0 && (
-          <div style={{ padding: 40, textAlign: "center", color: "#8e8e93", fontSize: 16 }}>No missed calls</div>
+          <div style={{ padding: 40, textAlign: "center", color: "var(--text-2)", fontSize: 16 }}>No missed calls</div>
         )}
       </div>
     </div>

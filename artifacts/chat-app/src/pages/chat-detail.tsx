@@ -358,8 +358,8 @@ export default function ChatDetail() {
                   borderRadius: 22,
                   borderBottomRightRadius: msg.isMine ? (nextSame ? 22 : 6) : 22,
                   borderBottomLeftRadius: msg.isMine ? 22 : (nextSame ? 22 : 6),
-                  background: msg.isMine ? "#007AFF" : "var(--bubble-in)",
-                  color: msg.isMine ? "#fff" : "var(--bubble-in-text)",
+                  background: msg.isMine ? "var(--bubble-out)" : "var(--bubble-in)",
+                  color: msg.isMine ? "var(--bubble-out-text)" : "var(--bubble-in-text)",
                   cursor: "pointer",
                   userSelect: "none",
                   WebkitUserSelect: "none",
@@ -397,13 +397,13 @@ export default function ChatDetail() {
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 3, justifyContent: "flex-end", marginTop: -16 }}>
                     {msg.editedAt && (
-                      <span style={{ fontSize: 10, color: msg.isMine ? "rgba(255,255,255,0.65)" : "#aaa" }}>edited</span>
+                      <span style={{ fontSize: 10, color: "var(--text-2)" }}>edited</span>
                     )}
-                    <span style={{ fontSize: 11, color: msg.isMine ? "rgba(255,255,255,0.75)" : "#8e8e93" }}>{msg.sentAt}</span>
+                    <span style={{ fontSize: 11, color: "var(--text-2)" }}>{msg.sentAt}</span>
                     {msg.isMine && (
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <path d="M2 12l5 5L17 5" stroke="rgba(255,255,255,0.75)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M8 12l5 5L23 5" stroke={msg.isRead ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.35)"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 12l5 5L17 5" stroke="var(--text-2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M8 12l5 5L23 5" stroke={msg.isRead ? "var(--text-2)" : "var(--sep)"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     )}
                   </div>

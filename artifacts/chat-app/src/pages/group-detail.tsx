@@ -198,6 +198,7 @@ export default function GroupDetail() {
   const [msgs, setMsgs] = useState<Msg[]>(INIT_MSGS);
   const [content, setContent] = useState("");
   const [ctx, setCtx] = useState<{ msgId: number; x: number; y: number } | null>(null);
+  const [infoOpen, setInfoOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -243,14 +244,17 @@ export default function GroupDetail() {
           </svg>
         </Link>
 
-        {/* Center: name + online */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        {/* Center: name + online — tappable for group info */}
+        <button
+          onClick={() => setInfoOpen(true)}
+          style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", background: "none", border: "none", cursor: "pointer", padding: "2px 0" }}
+        >
           <div style={{ fontSize: 17, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>{GROUP.name}</div>
           <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
             <AvatarStack />
             <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{GROUP.online} online</span>
           </div>
-        </div>
+        </button>
 
         {/* Video call */}
         <button style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "#007AFF" }}>
@@ -468,6 +472,104 @@ export default function GroupDetail() {
           </button>
         </div>
       </div>
+
+      {/* ── Group Info Sheet ── */}
+      <AnimatePresence>
+        {infoOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              style={{ position: "fixed", inset: 0, zIndex: 60, background: "rgba(0,0,0,0.6)", backdropFilter: "blur(6px)" }}
+              onClick={() => setInfoOpen(false)}
+            />
+            {/* Sheet */}
+            <motion.div
+              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              style={{
+                position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 61,
+                background: "#111",
+                borderRadius: "24px 24px 0 0",
+                paddingBottom: "max(32px, env(safe-area-inset-bottom, 32px))",
+                overflow: "hidden",
+              }}
+            >
+              {/* Handle */}
+              <div style={{ display: "flex", justifyContent: "center", paddingTop: 12, paddingBottom: 6 }}>
+                <div style={{ width: 36, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.18)" }} />
+              </div>
+
+              {/* Group avatar + name */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "20px 20px 24px" }}>
+                <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#5e5ce6,#30b0c7)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
+                  <span style={{ fontSize: 32 }}>🌿</span>
+                </div>
+                <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: -0.4 }}>{GROUP.name}</div>
+                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{GROUP.members.length} members · {GROUP.online} online</div>
+              </div>
+
+              {/* Action buttons */}
+              <div style={{ display: "flex", justifyContent: "center", gap: 20, padding: "0 20px 28px" }}>
+                {[
+                  { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.87a16 16 0 0 0 6 6l.91-1.09a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>, label: "Call" },
+                  { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="13" height="10" rx="2"/><polyline points="22 7 17 12 22 17"/></svg>, label: "Video" },
+                  { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>, label: "Mute" },
+                  { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>, label: "Search" },
+                ].map(btn => (
+                  <div key={btn.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                    <button style={{
+                      width: 54, height: 54, borderRadius: "50%",
+                      background: "#2c2c2e",
+                      border: "none", cursor: "pointer",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: "#007AFF",
+                    }}>{btn.icon}</button>
+                    <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>{btn.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div style={{ height: 0.5, background: "rgba(255,255,255,0.08)", margin: "0 20px 4px" }} />
+
+              {/* Members list */}
+              <div style={{ padding: "8px 0" }}>
+                <div style={{ padding: "6px 20px 10px", fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.3)", letterSpacing: 0.8, textTransform: "uppercase" }}>Members</div>
+                {GROUP.members.map((m, i) => (
+                  <div key={m.id}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 14, padding: "10px 20px" }}>
+                      <div style={{ width: 46, height: 46, borderRadius: "50%", background: m.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+                        {m.initials}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 16, fontWeight: 500, color: "#fff" }}>{m.name}</div>
+                        <div style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", marginTop: 1 }}>
+                          {i === 0 ? "Online now" : i === 1 ? "Online now" : "Last seen 2h ago"}
+                        </div>
+                      </div>
+                      {i === 0 && (
+                        <span style={{ fontSize: 11, color: "#5e5ce6", fontWeight: 600, background: "rgba(94,92,230,0.15)", padding: "3px 8px", borderRadius: 8 }}>Admin</span>
+                      )}
+                    </div>
+                    {i < GROUP.members.length - 1 && (
+                      <div style={{ height: 0.5, background: "rgba(255,255,255,0.06)", margin: "0 20px 0 80px" }} />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Leave group */}
+              <div style={{ margin: "16px 20px 0" }}>
+                <button style={{ width: "100%", padding: "14px", background: "#2c2c2e", border: "none", borderRadius: 14, cursor: "pointer", color: "#ff453a", fontSize: 16, fontWeight: 500 }}>
+                  Leave Group
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -97,11 +97,38 @@ export default function ChatList() {
   return (
     <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", background: "var(--bg)", overflow: "hidden" }}>
 
-      {/* Header */}
-      <div style={{ display: "flex", alignItems: "center", paddingTop: "calc(env(safe-area-inset-top, 0px) + 6px)", paddingBottom: 8, paddingLeft: 16, paddingRight: 16, gap: 10, position: "relative" }}>
-        <button onClick={() => setAvatarMenuOpen(v => !v)} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", flexShrink: 0 }}>
-          <img src="https://i.pravatar.cc/150?img=70" style={{ width: 34, height: 34, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", display: "block" }} alt="me" />
-        </button>
+      {/* Header — two-row large-title style */}
+      <div style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 8px)", paddingLeft: 16, paddingRight: 16, position: "relative" }}>
+
+        {/* Row 1: avatar + icons */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+          <button onClick={() => setAvatarMenuOpen(v => !v)} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", flexShrink: 0 }}>
+            <img src="https://i.pravatar.cc/150?img=70" style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", objectPosition: "top center", display: "block" }} alt="me" />
+          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <button onClick={toggle} style={{ background: "none", border: "none", cursor: "pointer", padding: 6, color: BLUE, display: "flex" }}>
+              {isDark ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="5"/>
+                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              )}
+            </button>
+            <button onClick={() => setNewMsgOpen(true)} style={{ background: "none", border: "none", cursor: "pointer", padding: 6, color: BLUE, display: "flex" }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Row 2: Large title */}
+        <h1 style={{ fontSize: 32, fontWeight: 700, color: "var(--text)", margin: "0 0 14px", letterSpacing: -0.8, lineHeight: 1 }}>Chats</h1>
 
         {/* Avatar popup menu */}
         <AnimatePresence>
@@ -119,7 +146,7 @@ export default function ChatList() {
                 exit={{ opacity: 0, scale: 0.88, y: -4 }}
                 transition={{ type: "spring", damping: 22, stiffness: 380 }}
                 style={{
-                  position: "absolute", top: 44, left: 12, zIndex: 81,
+                  position: "absolute", top: 52, left: 12, zIndex: 81,
                   background: "var(--glass)",
                   backdropFilter: "blur(20px)",
                   borderRadius: 14,
@@ -156,38 +183,10 @@ export default function ChatList() {
             </>
           )}
         </AnimatePresence>
-
-        <h1 style={{ flex: 1, fontSize: 17, fontWeight: 600, color: "var(--text)", textAlign: "center", margin: 0, letterSpacing: -0.4 }}>Chats</h1>
-        <div style={{ display: "flex", gap: 4 }}>
-          {/* Dark mode toggle */}
-          <button onClick={toggle} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: BLUE, display: "flex" }}>
-            {isDark ? (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"/>
-                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-              </svg>
-            ) : (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-              </svg>
-            )}
-          </button>
-          <button style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: BLUE, display: "flex" }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
-            </svg>
-          </button>
-          <button onClick={() => setNewMsgOpen(true)} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: BLUE, display: "flex" }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-            </svg>
-          </button>
-        </div>
       </div>
 
       {/* Search */}
-      <div style={{ margin: "0 16px 8px", background: "var(--bg-input)", borderRadius: 20, display: "flex", alignItems: "center", gap: 6, padding: "9px 12px" }}>
+      <div style={{ margin: "0 16px 10px", background: "var(--bg-input)", borderRadius: 12, display: "flex", alignItems: "center", gap: 6, padding: "10px 14px" }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8e8e93" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>

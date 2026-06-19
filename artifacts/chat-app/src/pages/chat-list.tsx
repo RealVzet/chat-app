@@ -211,7 +211,51 @@ export default function ChatList() {
         ) : filtered.length === 0 ? (
           <div style={{ padding: 24, textAlign: "center", color: "#8e8e93", fontSize: 15 }}>No chats found</div>
         ) : (
-          filtered.map((chat: any, idx: number) => {
+          <>
+          {/* ── Static group chat entry ── */}
+          {!search && (
+            <div>
+              <Link
+                href="/group/1"
+                style={{ display: "flex", alignItems: "center", gap: 12, padding: "8px 16px", textDecoration: "none" }}
+              >
+                {/* Group avatar: stacked initials */}
+                <div style={{ position: "relative", flexShrink: 0, width: 54, height: 54 }}>
+                  {[
+                    { color: "#5e5ce6", initials: "A", dx: 0, dy: 0 },
+                    { color: "#30b0c7", initials: "C", dx: 18, dy: 0 },
+                    { color: "#ff9f0a", initials: "S", dx: 9, dy: 16 },
+                  ].map((m, i) => (
+                    <div key={i} style={{
+                      position: "absolute", left: m.dx, top: m.dy,
+                      width: 36, height: 36, borderRadius: "50%",
+                      background: m.color,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 13, fontWeight: 700, color: "#fff",
+                      border: "2px solid var(--bg)",
+                      zIndex: i,
+                    }}>
+                      {m.initials}
+                    </div>
+                  ))}
+                </div>
+                <div style={{ flex: 1, overflow: "hidden", borderBottom: `0.5px solid var(--sep)`, paddingBottom: 8 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
+                    <span style={{ fontSize: 17, fontWeight: 600, color: "var(--text)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "65%" }}>
+                      gucci fans 🌿
+                    </span>
+                    <span style={{ fontSize: 14, color: "#8e8e93", whiteSpace: "nowrap", marginLeft: 8 }}>12:45</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                    <span style={{ fontSize: 15, color: "#8e8e93", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      Alex: Come ooooonn 👻
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          )}
+          {filtered.map((chat: any, idx: number) => {
             const isOnline = chat.contactId % 2 === 0;
             const lastMsgPreview = chat.lastMessage
               ? (chat.lastMessageIsMine ? `You: ${chat.lastMessage}` : chat.lastMessage)
@@ -261,7 +305,8 @@ export default function ChatList() {
                 </Link>
               </div>
             );
-          })
+          })}
+          </>
         )}
       </div>
 

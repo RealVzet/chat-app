@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import ChatList from "@/pages/chat-list";
 import ChatDetail from "@/pages/chat-detail";
 import ContactDetail from "@/pages/contact-detail";
+import GroupDetail from "@/pages/group-detail";
 import Calls from "@/pages/calls";
 import Stories from "@/pages/stories";
 import IosTabBar from "@/components/ios-tab-bar";
@@ -16,6 +17,7 @@ import { ThemeProvider } from "@/lib/theme";
 function getDepth(path: string): number {
   if (path.startsWith("/contact")) return 2;
   if (path.startsWith("/chat")) return 1;
+  if (path.startsWith("/group")) return 1;
   return 0;
 }
 
@@ -92,6 +94,7 @@ function Router() {
                 <Route path="/calls" component={Calls} />
                 <Route path="/stories" component={Stories} />
                 <Route path="/chat/:id" component={ChatDetail} />
+                <Route path="/group/:id" component={GroupDetail} />
                 <Route path="/contact/:id" component={ContactDetail} />
                 <Route component={NotFound} />
               </Switch>
